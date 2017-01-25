@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.jessica.bluetoothscan.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continuous scanning: \n5 second scan period\n"
+        android:textSize="@dimen/font_size"
+        android:id="@+id/textView" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expected SensorTags --"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/font_size"
+        android:id="@+id/expectedTitle" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/expectedTitle"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/list_font_size"
+        android:textColor="#F00"
+        android:id="@+id/expectedTags" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\nSensorTags in the area --"
+        android:layout_below="@+id/expectedTags"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/font_size"
+        android:id="@+id/title" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/list_font_size"
+        android:textColor= "#00ff00"
+        android:id="@+id/sensortag" />
+
+</RelativeLayout>
