@@ -80,13 +80,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             allDevices.clear();
-            scanHandler.postDelayed(stopScan, 5000); // invoke stop scan after 1000 ms
+            scanHandler.postDelayed(stopScan, 5000); // invoke stop scan after 5000 ms
             mBLEAdapter.startLeScan(mLeScanCallback);
         }
     };
+    public static String ByteArrayToString(byte[] ba)
+    {
+        StringBuilder hex = new StringBuilder(ba.length * 2);
+        for (byte b : ba)
+            hex.append(b + " ");
 
+        return hex.toString();
+    }
     // Device scan callback.
-    @SuppressLint("NewApi")
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
 
         @SuppressLint("NewApi")
@@ -98,17 +104,26 @@ public class MainActivity extends AppCompatActivity {
             String Address = device.getAddress();
             String Name = device.getName();
             byte[] data = scanRecord;
-            //if(Name != null && (Name.equals("CC2650 SensorTag") || Name.equals("SimpleBLEPeripheral") ||  Name.equals("RUTh"))){
+            String dataString = "";
+            Integer batteryVoltage = (((int)data[7])<<8) | (data[8] & 0xFF);
+            // Simply print all raw bytes
+            try {
+                String decodedRecord = new String(scanRecord,"UTF-8");
+                dataString += (ByteArrayToString(scanRecord));
+                Log.d("DEBUG","decoded data : " + ByteArrayToString(scanRecord));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
              if(expectedDevices.contains(Address)){
                 if(!sensorTagDevices.contains(device)){
                     sensorTagDevices.add(device);
                     String text = Name + ", " + Address;
                     TextView sensortag = (TextView)findViewById(R.id.sensortag);
                     sensortag.append(text);
-                    sensortag.append(data.toString());
-                    //TextView expectedTags = (TextView)findViewById(R.id.expectedTags);
-                    //expectedTags.col(Address);
-                    //Log.e("SENSORTAG ADDRESS: ", Address);
+                    sensortag.append("\nad Data: ");
+                    sensortag.append(dataString);
+                    sensortag.append("\nbattery voltage (mV): ");
+                    sensortag.append(batteryVoltage.toString());
                 }
             }
 
@@ -127,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 sensorTagDevices.clear();
             }
             mBLEAdapter.stopLeScan(mLeScanCallback);
-            scanHandler.postDelayed(startScan, 10); // start scan after 10 ms
+            scanHandler.postDelayed(startScan, 1000); // start scan after 10 ms
         }
     };
 
