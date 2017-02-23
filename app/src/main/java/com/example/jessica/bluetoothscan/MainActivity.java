@@ -105,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
             String Name = device.getName();
             byte[] data = scanRecord;
             String dataString = "";
-            Integer batteryVoltage = (((int)data[7])<<8) | (data[8] & 0xFF);
+            Integer battery = ((int)data[10]);
+            //Integer batteryVoltage = (((int)data[7])<<8) | (data[8] & 0xFF);
             // Simply print all raw bytes
             try {
                 String decodedRecord = new String(scanRecord,"UTF-8");
@@ -122,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     sensortag.append(text);
                     sensortag.append("\nad Data: ");
                     sensortag.append(dataString);
-                    sensortag.append("\nbattery voltage (mV): ");
-                    sensortag.append(batteryVoltage.toString());
+                    sensortag.append("\nbattery level (%): ");
+                    sensortag.append(battery.toString());
                 }
             }
 
