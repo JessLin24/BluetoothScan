@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         expectedDevices.add("A0:E6:F8:AE:19:06");
         expectedDevices.add("C4:BE:84:72:9D:81");
         expectedDevices.add("A0:E6:F8:C2:5C:01");
+        expectedDevices.add("B0:B4:48:D2:E0:83");
         TextView expectedTags = (TextView)findViewById(R.id.expectedTags);
         for (String address:expectedDevices) {
             expectedTags.append(address);
